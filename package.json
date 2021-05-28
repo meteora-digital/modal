@@ -7,8 +7,8 @@
     "test": "npm i && gulp"
   },
   "keywords": [
-    "equal",
-    "heights",
+    "modals",
+    "popups",
     "es6",
     "class",
     "html",
