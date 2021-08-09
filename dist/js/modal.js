@@ -55,11 +55,15 @@ var Modal = /*#__PURE__*/function () {
       if (_this.active && e.keyCode == 27) _this.close();
     });
 
-    for (var _key2 in this.template) {
-      this.template[_key2].addEventListener('click', function (e) {
+    var _loop = function _loop(_key2) {
+      _this.template[_key2].addEventListener('click', function (e) {
         e.preventDefault();
-        if (_this.active) _this.close();
+        if (_this.active && e.target === _this.template[_key2]) _this.close();
       });
+    };
+
+    for (var _key2 in this.template) {
+      _loop(_key2);
     }
   }
 
