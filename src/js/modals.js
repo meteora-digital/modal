@@ -41,7 +41,7 @@ export default class Modal {
     for (let key in this.template) {
       this.template[key].addEventListener('click', (e) => {
         e.preventDefault();
-        if (this.active) this.close();
+        if (this.active && e.target === this.template[key]) this.close();
       });
     }
   }
