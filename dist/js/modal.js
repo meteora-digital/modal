@@ -29,7 +29,8 @@ var Modal = /*#__PURE__*/function () {
     this.eventListeners = []; // User settings / defaults 
 
     this.settings = {
-      className: 'modal'
+      className: 'modal',
+      allowClose: true
     }; // Simple object assign
 
     for (var key in this.settings) {
@@ -51,19 +52,22 @@ var Modal = /*#__PURE__*/function () {
     this.template.container.appendChild(this.template.wrapper); // Hide it
 
     this.template.container.style.display = 'none';
-    window.addEventListener('keydown', function (e) {
-      if (_this.active && e.keyCode == 27) _this.close();
-    });
 
-    var _loop = function _loop(_key2) {
-      _this.template[_key2].addEventListener('click', function (e) {
-        e.preventDefault();
-        if (_this.active && e.target === _this.template[_key2]) _this.close();
+    if (this.settings.allowClose) {
+      window.addEventListener('keydown', function (e) {
+        if (_this.active && e.code == 'Escape') _this.close();
       });
-    };
 
-    for (var _key2 in this.template) {
-      _loop(_key2);
+      var _loop = function _loop(_key2) {
+        _this.template[_key2].addEventListener('click', function (e) {
+          e.preventDefault();
+          if (_this.active && e.target === _this.template[_key2]) _this.close();
+        });
+      };
+
+      for (var _key2 in this.template) {
+        _loop(_key2);
+      }
     }
   }
 

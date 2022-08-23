@@ -12,6 +12,7 @@ export default class Modal {
     // User settings / defaults 
     this.settings = {
       className: 'modal',
+      allowClose: true,
     }
 
     // Simple object assign
@@ -34,15 +35,17 @@ export default class Modal {
     // Hide it
     this.template.container.style.display = 'none';
 
-    window.addEventListener('keydown', (e) => {
-      if (this.active && e.keyCode == 27) this.close();
-    });
-
-    for (let key in this.template) {
-      this.template[key].addEventListener('click', (e) => {
-        e.preventDefault();
-        if (this.active && e.target === this.template[key]) this.close();
+    if (this.settings.allowClose) {
+      window.addEventListener('keydown', (e) => {
+        if (this.active && e.code == 'Escape') this.close();
       });
+
+      for (let key in this.template) {
+        this.template[key].addEventListener('click', (e) => {
+          e.preventDefault();
+          if (this.active && e.target === this.template[key]) this.close();
+        });
+      }
     }
   }
 
