@@ -22,6 +22,8 @@ const content = document.querySelector('.content');
 | Option | Type | Description |
 |--------|------|-------------|
 | className | string (default: 'modal') | If you want more than one style of modal, you can change this class to suit your needs |
+| allowClose | boolean (default: true) | If you want to disable the close button, set this to false |
+| removeFromDOM | boolean (default: true) | If you want to keep the modal in the DOM, set this to false |
 
 #### Content Loading
 
