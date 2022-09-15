@@ -13,16 +13,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/*------------------------------------------------------------------
-Modal Class
-------------------------------------------------------------------*/
-var Modal = /*#__PURE__*/function () {
-  function Modal() {
+var ModalController = /*#__PURE__*/function () {
+  function ModalController() {
     var _this = this;
 
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    _classCallCheck(this, Modal);
+    _classCallCheck(this, ModalController);
 
     this.active = false;
     this.timeout = null;
@@ -30,7 +27,8 @@ var Modal = /*#__PURE__*/function () {
 
     this.settings = {
       className: 'modal',
-      allowClose: true
+      allowClose: true,
+      removeFromDOM: true
     }; // Simple object assign
 
     for (var key in this.settings) {
@@ -69,9 +67,13 @@ var Modal = /*#__PURE__*/function () {
         _loop(_key2);
       }
     }
+
+    if (!this.settings.removeFromDOM) {
+      document.body.appendChild(this.template.container);
+    }
   }
 
-  _createClass(Modal, [{
+  _createClass(ModalController, [{
     key: "append",
     value: function append(html) {
       var _this2 = this;
@@ -100,8 +102,11 @@ var Modal = /*#__PURE__*/function () {
         // Cancel other events
         clearTimeout(this.timeout);
         this.timeout = setTimeout(function () {
-          // Add it to the DOM
-          document.body.appendChild(_this3.template.container); // Show it with css
+          if (_this3.settings.removeFromDOM) {
+            // Add it to the DOM
+            document.body.appendChild(_this3.template.container);
+          } // Show it with css
+
 
           _this3.template.container.style.display = 'block';
           _this3.timeout = setTimeout(function () {
@@ -133,9 +138,13 @@ var Modal = /*#__PURE__*/function () {
             // No longer active`
             _this4.active = false; // Hide it with css
 
-            _this4.template.container.style.display = 'none'; // Remove the element
+            _this4.template.container.style.display = 'none';
 
-            document.body.removeChild(_this4.template.container); // Callback function
+            if (_this4.settings.removeFromDOM) {
+              // Remove the element
+              document.body.removeChild(_this4.template.container);
+            } // Callback function
+
 
             _this4.callback('close');
           }, 300);
@@ -169,7 +178,7 @@ var Modal = /*#__PURE__*/function () {
     }
   }]);
 
-  return Modal;
+  return ModalController;
 }();
 
-exports["default"] = Modal;
+exports["default"] = ModalController;

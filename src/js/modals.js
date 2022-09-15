@@ -1,8 +1,4 @@
-/*------------------------------------------------------------------
-Modal Class
-------------------------------------------------------------------*/
-
-export default class Modal {
+export default class ModalController {
   constructor(options = {}) {
     this.active = false;
     this.timeout = null;
@@ -13,6 +9,7 @@ export default class Modal {
     this.settings = {
       className: 'modal',
       allowClose: true,
+      removeFromDOM: true,
     }
 
     // Simple object assign
@@ -47,6 +44,10 @@ export default class Modal {
         });
       }
     }
+
+    if (!this.settings.removeFromDOM) {
+      document.body.appendChild(this.template.container);
+    }
   }
 
   append(html) {
@@ -75,8 +76,11 @@ export default class Modal {
       clearTimeout(this.timeout);
 
       this.timeout = setTimeout(() => {
-        // Add it to the DOM
-        document.body.appendChild(this.template.container);
+        if (this.settings.removeFromDOM) {
+          // Add it to the DOM
+          document.body.appendChild(this.template.container);
+        }
+
         // Show it with css
         this.template.container.style.display = 'block';
         this.timeout = setTimeout(() => {
@@ -105,8 +109,12 @@ export default class Modal {
           this.active = false;
           // Hide it with css
           this.template.container.style.display = 'none';
-          // Remove the element
-          document.body.removeChild(this.template.container);
+
+          if (this.settings.removeFromDOM) {
+            // Remove the element
+            document.body.removeChild(this.template.container);
+          }
+
           // Callback function
           this.callback('close');
         }, 300);
