@@ -39,7 +39,6 @@ export default class ModalController {
 
       for (let key in this.template) {
         this.template[key].addEventListener('click', (e) => {
-          e.preventDefault();
           if (this.active && e.target === this.template[key]) this.close();
         });
       }

@@ -58,7 +58,6 @@ var ModalController = /*#__PURE__*/function () {
 
       var _loop = function _loop(_key2) {
         _this.template[_key2].addEventListener('click', function (e) {
-          e.preventDefault();
           if (_this.active && e.target === _this.template[_key2]) _this.close();
         });
       };
