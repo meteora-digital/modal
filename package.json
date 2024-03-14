@@ -1,6 +1,6 @@
 {
   "name": "@meteora-digital/modal",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "An es6 class to create some basic modals.",
   "main": "dist/index.js",
   "scripts": {
