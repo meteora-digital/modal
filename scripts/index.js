@@ -5,11 +5,12 @@ export default class ModalController {
 
     this.eventListeners = [];
 
-    // User settings / defaults 
+    // User settings / defaults
     this.settings = {
       className: 'modal',
       allowClose: true,
       removeFromDOM: true,
+      parent: document.body,
     }
 
     // Simple object assign
@@ -45,7 +46,7 @@ export default class ModalController {
     }
 
     if (!this.settings.removeFromDOM) {
-      document.body.appendChild(this.template.container);
+      this.settings.parent.appendChild(this.template.container);
     }
   }
 
@@ -77,7 +78,7 @@ export default class ModalController {
       this.timeout = setTimeout(() => {
         if (this.settings.removeFromDOM) {
           // Add it to the DOM
-          document.body.appendChild(this.template.container);
+          this.settings.parent.appendChild(this.template.container);
         }
 
         // Show it with css
@@ -111,7 +112,7 @@ export default class ModalController {
 
           if (this.settings.removeFromDOM) {
             // Remove the element
-            document.body.removeChild(this.template.container);
+            this.settings.parent.removeChild(this.template.container);
           }
 
           // Callback function

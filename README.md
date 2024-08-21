@@ -24,6 +24,7 @@ const content = document.querySelector('.content');
 | className | string (default: 'modal') | If you want more than one style of modal, you can change this class to suit your needs |
 | allowClose | boolean (default: true) | If you want to disable the close button, set this to false |
 | removeFromDOM | boolean (default: true) | If you want to keep the modal in the DOM, set this to false |
+| parent | string (default: 'body') | If you want to append the modal to a different element, set this to the selector of that element |
 
 #### Content Loading
 
@@ -78,4 +79,3 @@ popup.on('open', () => console.log('Your modal has been opened!'));
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
